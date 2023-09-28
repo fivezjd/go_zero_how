@@ -4,6 +4,8 @@ package handler
 import (
 	"net/http"
 
+	userV1 "github.com/fivezjd/go_zero_how/internal/handler/userV1"
+	userV2 "github.com/fivezjd/go_zero_how/internal/handler/userV2"
 	"github.com/fivezjd/go_zero_how/internal/svc"
 
 	"github.com/zeromicro/go-zero/rest"
@@ -15,8 +17,25 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 			{
 				Method:  http.MethodGet,
 				Path:    "/from/:name",
-				Handler: Go_zero_howHandler(serverCtx),
+				Handler: userV1.Go_zero_howHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodPost,
+				Path:    "/user/register",
+				Handler: userV1.UserRegisterHandler(serverCtx),
 			},
 		},
+		rest.WithPrefix("/v1"),
+	)
+
+	server.AddRoutes(
+		[]rest.Route{
+			{
+				Method:  http.MethodPost,
+				Path:    "/user/register",
+				Handler: userV2.UserRegisterV2Handler(serverCtx),
+			},
+		},
+		rest.WithPrefix("/v2"),
 	)
 }

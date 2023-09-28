@@ -8,3 +8,13 @@ type Request struct {
 type Response struct {
 	Message string `json:"message"`
 }
+
+type RequestOne struct {
+	UserId string `json:"user_id,default=ABC"`                   // userId 的默认值的是ABC,设置了默认值，不传该值也不会报错
+	Phone  string `json:"phone,options=18810220000|18810221111"` // phone 的类型是 字符串，他的值只能是 options中的一个
+	City   string `json:"city"`                                  // 如果city为空，则会提示
+}
+
+type ResponseOne struct {
+	Data []string `json:"data_string_slice"`
+}

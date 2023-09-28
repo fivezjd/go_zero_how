@@ -8,7 +8,40 @@ type Response {
 	Message string `json:"message"`
 }
 
-service go_zero_how-api {
+// 定义请求体类型
+
+type RequestOne {
+	UserId string `json:"user_id,default=ABC"`                   // userId 的默认值的是ABC,设置了默认值，不传该值也不会报错
+	Phone  string `json:"phone,options=18810220000|18810221111"` // phone 的类型是 字符串，他的值只能是 options中的一个
+	City   string `json:"city"`                                  // 如果city为空，则会提示
+}
+
+// 定义返回值类型
+
+type ResponseOne {
+	Data []string `json:"data_string_slice"`
+}
+// 路由前缀
+@server (
+	prefix: /v1
+	group: userV1 // 分组要提前规划好
+)
+
+service user-api {
 	@handler Go_zero_howHandler
 	get /from/:name(Request) returns (Response)
+
+	@handler UserRegister
+	post /user/register (RequestOne) returns (ResponseOne)
+}
+
+@server (
+	prefix: /v2
+	group : userV2
+)
+
+service user-api {
+
+	@handler UserRegisterV2
+	post /user/register (RequestOne) returns (ResponseOne)
 }

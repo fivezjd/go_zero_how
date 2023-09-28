@@ -1,4 +1,4 @@
-package logic
+package userV2
 
 import (
 	"context"
@@ -9,21 +9,21 @@ import (
 	"github.com/zeromicro/go-zero/core/logx"
 )
 
-type Go_zero_howLogic struct {
+type UserRegisterV2Logic struct {
 	logx.Logger
 	ctx    context.Context
 	svcCtx *svc.ServiceContext
 }
 
-func NewGo_zero_howLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Go_zero_howLogic {
-	return &Go_zero_howLogic{
+func NewUserRegisterV2Logic(ctx context.Context, svcCtx *svc.ServiceContext) *UserRegisterV2Logic {
+	return &UserRegisterV2Logic{
 		Logger: logx.WithContext(ctx),
 		ctx:    ctx,
 		svcCtx: svcCtx,
 	}
 }
 
-func (l *Go_zero_howLogic) Go_zero_how(req *types.Request) (resp *types.Response, err error) {
+func (l *UserRegisterV2Logic) UserRegisterV2(req *types.RequestOne) (resp *types.ResponseOne, err error) {
 	// todo: add your logic here and delete this line
 
 	return
